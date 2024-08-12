@@ -22,7 +22,7 @@ const Navbar = () => {
         {links.map((link) => (
           <li key={link.href}>
             <Link
-              className={classNames("hover:text-slate-800 transition-colors", {
+              className={classNames("hover:text-zinc-800 transition-colors", {
                 "text-zinc-900": pathname === link.href,
                 "text-zinc-500": pathname !== link.href,
               })}
