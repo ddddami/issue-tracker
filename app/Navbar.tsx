@@ -14,7 +14,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex space-x-6 h-14 items-center border-b px-4 mb-4">
+    <nav className="flex space-x-6 h-14 items-center border-b px-4 mb-3">
       <Link href="/">
         <Bug size={21} />
       </Link>
