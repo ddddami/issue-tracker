@@ -7,7 +7,7 @@ const STATUSES = ["OPEN", "IN_PROGRESS", "CLOSED"] as const;
 const createIssueSchema = z.object({
   title: z.string().min(3).max(255),
   description: z.string().min(3).max(2048),
-  status: z.enum(STATUSES),
+  status: z.enum(STATUSES).optional(),
 });
 
 export async function POST(request: NextRequest) {
