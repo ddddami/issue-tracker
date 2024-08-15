@@ -1,8 +1,13 @@
 import React from "react";
-import Spinner from "@/app/components/Spinner";
+import { Skeleton } from "@radix-ui/themes";
 
-const NewIssuePage = () => {
-  return <div>Loading... </div>;
+const NewIssueLoadingPage = () => {
+  return (
+    <div className="space-y-3">
+      <Skeleton />
+      <Skeleton height="20rem" />
+    </div>
+  );
 };
 
-export default NewIssuePage;
+export default NewIssueLoadingPage;
