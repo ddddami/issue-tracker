@@ -10,9 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { createIssueSchema } from "@/app/validationSchemas";
-import ErrorCallout from "@/app/components/ErrorCallout";
-import ErrorMessage from "@/app/components/ErrorMessage";
-import Spinner from "@/app/components/Spinner";
+import { Spinner, ErrorMessage, ErrorCallout } from "@/app/components";
 
 const SimpleMdeReact = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
