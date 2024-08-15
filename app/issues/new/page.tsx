@@ -28,21 +28,21 @@ const NewIssuePage = () => {
   } = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema),
   });
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setError("An unexpected error occured.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  });
+
   return (
-    <form
-      onSubmit={handleSubmit(async (data) => {
-        try {
-          setIsSubmitting(true);
-          await axios.post("/api/issues", data);
-          router.push("/issues");
-        } catch (error) {
-          setError("An unexpected error occured.");
-        } finally {
-          setIsSubmitting(false);
-        }
-      })}
-      className="max-w-xl space-y-3"
-    >
+    <form onSubmit={onSubmit} className="max-w-xl space-y-3">
       {error && <ErrorCallout>{error}</ErrorCallout>}
       <TextField.Root
         placeholder="Title"
