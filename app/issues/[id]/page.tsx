@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
-import { Box, Button, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
-import ReactMarkdown from "react-markdown";
+import { Box, Grid } from "@radix-ui/themes";
 import prisma from "@/prisma/client";
-import { IssueStatusBadge } from "@/app/components";
-import { PenLine } from "lucide-react";
-import Link from "next/link";
+import EditIssueButton from "../EditIssueButton";
+import IssueDetails from "./IssueDetails";
 
 interface Props {
   params: { id: string };
@@ -19,20 +17,10 @@ const page = async ({ params }: Props) => {
   return (
     <Grid columns={{ initial: "1", md: "2" }} gap="2">
       <Box>
-        <Heading as="h1">{issue.title}</Heading>
-        <Flex gap="3" my="3">
-          <IssueStatusBadge status={issue.status} />
-          <Text>{issue.createdAt.toDateString()}</Text>
-        </Flex>
-        <Card variant="ghost" className="prose">
-          <ReactMarkdown>{issue.description}</ReactMarkdown>
-        </Card>
+        <IssueDetails issue={issue} />
       </Box>
       <Box>
-        <Button>
-          <PenLine size={18} strokeWidth={1.25} />
-          <Link href={`/issues${issue.id}/edit`}>Edit Issue</Link>
-        </Button>
+        <EditIssueButton issueId={issue.id} />
       </Box>
     </Grid>
   );
