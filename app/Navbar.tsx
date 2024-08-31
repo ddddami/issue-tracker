@@ -64,6 +64,7 @@ const Navbar = () => {
                     fallback={data.user!.name![0]}
                     alt="Profile image"
                     radius="full"
+                    referrerPolicy="no-referrer"
                   />
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
