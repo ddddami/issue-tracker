@@ -5,7 +5,14 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Bug } from "lucide-react";
 import classNames from "classnames";
-import { Box, Container, Flex } from "@radix-ui/themes";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  DropdownMenu,
+  Flex,
+} from "@radix-ui/themes";
 
 const Navbar = () => {
   const links = [
@@ -19,7 +26,7 @@ const Navbar = () => {
   return (
     <nav className="border-b px-5 mb-3 py-5">
       <Container>
-        <Flex justify="between">
+        <Flex align={"center"} justify="between">
           <Box>
             <Flex gap="3" align={"center"}>
               <Link href="/">
@@ -47,7 +54,25 @@ const Navbar = () => {
           </Box>
           <Box>
             {status === "authenticated" && (
-              <Link href="/api/auth/signout">Sign out</Link>
+              // <Link href="/api/auth/signout">Sign out</Link>
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger>
+                  <Avatar
+                    className="cursor-pointer"
+                    size={"2"}
+                    src={data.user!.image!}
+                    fallback={data.user!.name![0]}
+                    alt="Profile image"
+                    radius="full"
+                  />
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content>
+                  <DropdownMenu.Label>{data.user?.email}</DropdownMenu.Label>
+                  <DropdownMenu.Item>
+                    <Link href="/api/auth/signout">Sign out</Link>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
             )}
             {status === "unauthenticated" && (
               <Link href="/api/auth/signin">Sign in</Link>
