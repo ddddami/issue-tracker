@@ -5,7 +5,13 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Bug } from "lucide-react";
 import classNames from "classnames";
-import { Avatar, Container, DropdownMenu, Flex } from "@radix-ui/themes";
+import {
+  Avatar,
+  Container,
+  DropdownMenu,
+  Flex,
+  Skeleton,
+} from "@radix-ui/themes";
 
 const Navbar = () => {
   return (
@@ -58,26 +64,28 @@ const AuthStatus = () => {
 
   if (status === "unauthenticated")
     return <Link href="/api/auth/signin">Sign in</Link>;
-  if (status === "authenticated")
-    return (
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Avatar
-            className="cursor-pointer"
-            size={"2"}
-            src={data.user!.image!}
-            fallback={data.user!.name![0]}
-            alt="Profile image"
-            radius="full"
-            referrerPolicy="no-referrer"
-          />
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content>
-          <DropdownMenu.Label>{data.user?.email}</DropdownMenu.Label>
-          <DropdownMenu.Item>
-            <Link href="/api/auth/signout">Sign out</Link>
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-    );
+
+  if (status === "loading") return <Skeleton width="3rem" />;
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <Avatar
+          className="cursor-pointer"
+          size={"2"}
+          src={data!.user!.image!}
+          fallback={data!.user!.name![0]}
+          alt="Profile image"
+          radius="full"
+          referrerPolicy="no-referrer"
+        />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Label>{data!.user?.email}</DropdownMenu.Label>
+        <DropdownMenu.Item>
+          <Link href="/api/auth/signout">Sign out</Link>
+        </DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
 };
