@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { Bug } from "lucide-react";
 import classNames from "classnames";
+import { Box } from "@radix-ui/themes";
 
 const Navbar = () => {
   const links = [
@@ -12,6 +14,7 @@ const Navbar = () => {
   ];
 
   const pathname = usePathname();
+  const { status, data } = useSession();
 
   return (
     <nav className="flex space-x-6 h-14 items-center border-b px-4 mb-3">
@@ -33,6 +36,14 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
+      <Box>
+        {status === "authenticated" && (
+          <Link href="/api/auth/signout">Sign out</Link>
+        )}
+        {status === "unauthenticated" && (
+          <Link href="/api/auth/signin">Sign in</Link>
+        )}
+      </Box>
     </nav>
   );
 };
