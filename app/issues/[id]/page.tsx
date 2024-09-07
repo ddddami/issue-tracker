@@ -4,6 +4,7 @@ import prisma from "@/prisma/client";
 import EditIssueButton from "../EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "../DeleteIssueButton";
+import AssigneeSelect from "./AssigneeSelect";
 
 interface Props {
   params: { id: string };
@@ -22,6 +23,7 @@ const page = async ({ params }: Props) => {
       </Box>
       <Box>
         <Flex gap="2" direction="column">
+          <AssigneeSelect />
           <EditIssueButton issueId={issue.id} />
           <DeleteIssueButton issueId={issue.id} />
         </Flex>
