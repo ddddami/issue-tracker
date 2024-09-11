@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Flex, Text } from "@radix-ui/themes";
 import {
   ChevronLeft,
@@ -13,21 +16,51 @@ interface Props {
 }
 const Pagination = ({ currentPage, itemsCount, pageSize }: Props) => {
   const pagesCount = Math.ceil(itemsCount / pageSize);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const changePage = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+    router.push("?" + params.toString());
+  };
+
   return (
     <Flex align="center" gap="2">
       <Text>
         Page {currentPage} of {pagesCount}
       </Text>
-      <Button color="gray" variant="soft" disabled={currentPage === 1}>
+      <Button
+        color="gray"
+        variant="soft"
+        disabled={currentPage === 1}
+        onClick={() => changePage(1)}
+      >
         <ChevronsLeft size={18} />
       </Button>
-      <Button color="gray" variant="soft" disabled={currentPage === 1}>
+      <Button
+        color="gray"
+        variant="soft"
+        disabled={currentPage === 1}
+        onClick={() => changePage(currentPage - 1)}
+      >
         <ChevronLeft size={18} />
       </Button>
-      <Button color="gray" variant="soft" disabled={currentPage === pagesCount}>
+      <Button
+        color="gray"
+        variant="soft"
+        disabled={currentPage === pagesCount}
+        onClick={() => changePage(currentPage + 1)}
+      >
         <ChevronRight size={18} />
       </Button>
-      <Button color="gray" variant="soft" disabled={currentPage === pagesCount}>
+      <Button
+        color="gray"
+        variant="soft"
+        disabled={currentPage === pagesCount}
+        onClick={() => changePage(pagesCount)}
+      >
         <ChevronsRight size={18} />
       </Button>
     </Flex>
