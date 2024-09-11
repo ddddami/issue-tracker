@@ -15,17 +15,17 @@ interface Props {
   pageSize: number;
 }
 const Pagination = ({ currentPage, itemsCount, pageSize }: Props) => {
-  const pagesCount = Math.ceil(itemsCount / pageSize);
-
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const pagesCount = Math.ceil(itemsCount / pageSize);
   const changePage = (page: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page.toString());
     router.push("?" + params.toString());
   };
 
+  if (pagesCount === 1) return null;
   return (
     <Flex align="center" gap="2">
       <Text>
