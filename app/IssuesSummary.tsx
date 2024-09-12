@@ -3,11 +3,15 @@ import { Card, Flex, Text } from "@radix-ui/themes";
 import { Status } from "@prisma/client";
 
 interface Props {
-  open: number;
-  inProgress: number;
-  closed: number;
+  issuesSummary: {
+    open: number;
+    inProgress: number;
+    closed: number;
+  };
 }
-const IssuesSummary = ({ open, inProgress, closed }: Props) => {
+const IssuesSummary = ({
+  issuesSummary: { open, inProgress, closed },
+}: Props) => {
   const containers: { label: string; status: Status; value: number }[] = [
     { label: "Open Issues", status: "OPEN", value: open },
     { label: "In-progress Issues", status: "IN_PROGRESS", value: inProgress },
