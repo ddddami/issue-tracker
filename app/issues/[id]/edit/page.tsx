@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 import prisma from "@/prisma/client";
 import IssueFormSkeleton from "./loading";
+import { Metadata } from "next";
 
 interface Props {
   params: { id: string };
@@ -18,6 +19,10 @@ const EditIssuePage = async ({ params }: Props) => {
 
   if (!issue) notFound();
   return <IssueForm issue={issue} />;
+};
+
+export const metadata: Metadata = {
+  title: "Edit Issue",
 };
 
 export default EditIssuePage;
