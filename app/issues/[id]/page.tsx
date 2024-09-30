@@ -1,11 +1,12 @@
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import prisma from "@/prisma/client";
-import EditIssueButton from "../EditIssueButton";
-import IssueDetails from "./IssueDetails";
+import { auth } from "@/auth";
 import DeleteIssueButton from "../DeleteIssueButton";
+import EditIssueButton from "../EditIssueButton";
 import AssigneeSelect from "./AssigneeSelect";
-import { cache } from "react";
+import IssueDetails from "./IssueDetails";
 
 interface Props {
   params: { id: string };
@@ -17,6 +18,7 @@ const fetchUser = cache((issueId: number) =>
   })
 );
 const page = async ({ params }: Props) => {
+  const session = await auth();
   const issue = await fetchUser(parseInt(params.id));
   if (!issue) notFound();
   return (
@@ -28,7 +30,7 @@ const page = async ({ params }: Props) => {
         <Flex gap="2" direction="column">
           <AssigneeSelect issue={issue} />
           <EditIssueButton issueId={issue.id} />
-          <DeleteIssueButton issueId={issue.id} />
+          <DeleteIssueButton disabled={!session} issueId={issue.id} />
         </Flex>
       </Box>
     </Grid>
