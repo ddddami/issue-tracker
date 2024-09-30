@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button, TextField } from "@radix-ui/themes";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import SimpleMdeReact from "react-simplemde-editor";
-import "easymde/dist/easymde.min.css";
-import { Issue } from "@prisma/client";
+import { ErrorCallout, ErrorMessage, Spinner } from "@/app/components";
 import { issueSchema } from "@/app/validationSchemas";
-import { Spinner, ErrorMessage, ErrorCallout } from "@/app/components";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Issue } from "@prisma/client";
+import { Button, TextField } from "@radix-ui/themes";
+import axios from "axios";
+import "easymde/dist/easymde.min.css";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import SimpleMdeReact from "react-simplemde-editor";
+import { z } from "zod";
 
 type IssueFormData = z.infer<typeof issueSchema>;
 
@@ -60,7 +60,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       />
       <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-      <Button disabled={isSubmitting}>
+      <Button mt={"1"} disabled={isSubmitting}>
         {issue ? "Edit Issue" : "Submit New Issue"}
         {isSubmitting && <Spinner />}
       </Button>

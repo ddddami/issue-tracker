@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { Card, Flex, Text } from "@radix-ui/themes";
 import { Status } from "@prisma/client";
+import { Card, Flex, Text } from "@radix-ui/themes";
+import Link from "next/link";
 
 interface Props {
   issuesSummary: {
@@ -23,7 +23,7 @@ const IssuesSummary = ({
         <Card key={container.label}>
           <Flex direction="column" gap="1">
             <Link
-              className="text-sm font-medium"
+              className="text-base font-normal md:font-medium text-zinc-700"
               href={`/issues?status=${container.status}`}
             >
               {container.label}
